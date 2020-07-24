@@ -1,0 +1,101 @@
+package gui;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.border.*;
+import javax.swing.*;
+
+public class Admin extends JFrame implements ActionListener {
+
+	private JPanel contentPane;
+	private JButton btnlogout, btnAdminpage,btncreateAccount;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Admin frame = new Admin();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Admin() {
+		setTitle("BANKING SYSTEM");
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(160, 100, 649, 632);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Faizan\\Desktop\\pictures\\window_icon.png"));
+		contentPane = new JPanel();
+		contentPane.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(119, 136, 153)));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		setVisible(true);
+
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(41, 25, 55, 65);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\bs logo.png"));
+		contentPane.add(lblNewLabel);
+
+		btncreateAccount = new JButton("Create Account");
+		btncreateAccount.setBackground(new Color(211, 211, 211));
+		btncreateAccount.setFont(new Font("Comic Sans MS", Font.ITALIC, 16));
+		btncreateAccount.setBounds(213, 326, 195, 41);
+		btncreateAccount.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\create_account_2.png"));
+		contentPane.add(btncreateAccount);
+
+		btnAdminpage = new JButton("Admin Page");
+		btnAdminpage.setBackground(new Color(211, 211, 211));
+		btnAdminpage.setFont(new Font("Comic Sans MS", Font.ITALIC, 17));
+		btnAdminpage.setBounds(220, 229, 177, 41);
+		btnAdminpage.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Actions-document-save-all-icon.png"));
+		contentPane.add(btnAdminpage);
+
+		btnlogout = new JButton("Logout");
+		btnlogout.setBackground(new Color(245, 245, 245));
+		btnlogout.setFont(new Font("Comic Sans MS", Font.ITALIC, 15));
+		btnlogout.setBounds(457, 518, 118, 35);
+		btnlogout.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Log-Out-icon.png"));
+		contentPane.add(btnlogout);
+
+		JLabel lblOnlineBanking = new JLabel("Banking System");
+		lblOnlineBanking.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOnlineBanking.setForeground(Color.WHITE);
+		lblOnlineBanking.setBounds(10, 81, 118, 22);
+		contentPane.add(lblOnlineBanking);
+
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(10, 11, 613, 570);
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\121.jpg"));
+		contentPane.add(lblNewLabel_1);
+
+		btnAdminpage.addActionListener(this);
+		btncreateAccount.addActionListener(this);
+		btnlogout.addActionListener(this);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource().equals(btnAdminpage)) {
+			dispose();
+			new Admin_Page();
+		}else if(e.getSource().equals(btncreateAccount)) {
+			dispose();
+			new Create_Account();
+		}else if(e.getSource().equals(btnlogout)){
+			dispose(); 
+			new StartupWindow();
+		}
+	}
+}

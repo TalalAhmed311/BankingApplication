@@ -1,0 +1,309 @@
+package gui;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.border.*;
+import javax.swing.*;
+
+
+public class Edit extends JFrame {
+
+	private JPanel contentPane;
+	private int accno;
+	private JTextField txtname,txtaddress,txtcontact,txtemail,txtpostalcode;
+	private Operations function=new Operate();
+	private JLabel lblpostalcodeerror,lblcontacterror,lblemailerror;	
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Edit frame = new Edit(0);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	
+	/**
+	 * Create the frame.
+	 */
+	public Edit(int accno) {
+		setResizable(false);
+		setTitle("EDIT ACCOUNT DETAILS");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 30, 1039, 726);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Faizan\\Desktop\\pictures\\bs logo.png"));
+		contentPane = new JPanel();
+		contentPane.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(119, 136, 153)));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(485, 20, 48, 55);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\bs logo.png"));
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblOnlineBanking = new JLabel("Banking System");
+		lblOnlineBanking.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblOnlineBanking.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOnlineBanking.setForeground(Color.WHITE);
+		lblOnlineBanking.setBounds(439, 70, 139, 22);
+		contentPane.add(lblOnlineBanking);
+		
+		JLabel lblNewLabel_2 = new JLabel("EDIT ACCOUNT");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Comic Sans MS", Font.PLAIN, 26));
+		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setBounds(316, 136, 398, 74);
+		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\Faizan\\pictures\\Pencil-4-icon (1).png"));
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_4 = new JLabel("NAME");
+		lblNewLabel_4.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_4.setForeground(Color.WHITE);
+		lblNewLabel_4.setBounds(343, 261, 48, 14);
+		contentPane.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_6 = new JLabel("ADDRESS");
+		lblNewLabel_6.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_6.setForeground(Color.WHITE);
+		lblNewLabel_6.setBounds(343, 309, 89, 14);
+		contentPane.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_8 = new JLabel("CONTACT NO");
+		lblNewLabel_8.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_8.setForeground(Color.WHITE);
+		lblNewLabel_8.setBounds(343, 363, 139, 14);
+		contentPane.add(lblNewLabel_8);
+						
+		txtname = new JTextField();
+		txtname.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtname.setBounds(504, 254, 229, 32);
+		contentPane.add(txtname);
+		txtname.setColumns(10);
+		
+		txtaddress = new JTextField();
+		txtaddress.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtaddress.setBounds(504, 302, 299, 32);
+		contentPane.add(txtaddress);
+		txtaddress.setColumns(10);
+		
+		txtcontact = new JTextField();
+		txtcontact.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtcontact.setBounds(504, 355, 201, 32);
+		contentPane.add(txtcontact);
+		txtcontact.setColumns(10);
+		
+		JLabel lblNewLabel_10 = new JLabel("EMAIL ADDRESS");
+		lblNewLabel_10.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_10.setForeground(Color.WHITE);
+		lblNewLabel_10.setBounds(343, 416, 139, 14);
+		contentPane.add(lblNewLabel_10);
+		
+		txtemail = new JTextField();
+		txtemail.setToolTipText("xyz@gmail.com");
+		txtemail.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtemail.setBounds(504, 408, 246, 32);
+		contentPane.add(txtemail);
+		txtemail.setColumns(10);
+		
+		JButton btnback = new JButton("BACK");
+		btnback.setBackground(new Color(245, 245, 245));
+		btnback.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+		btnback.setBounds(80, 614, 115, 32);
+		btnback.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Back-icon (1).png"));
+		contentPane.add(btnback);
+		
+		JButton btnDone= new JButton("Done");
+		btnDone.setBackground(new Color(245, 245, 245));
+		btnDone.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		btnDone.setBounds(816, 611, 157, 35);
+		btnDone.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Ok-icon.png"));
+		contentPane.add(btnDone);
+		
+		
+		JLabel lblPostCode = new JLabel("POST CODE");
+		lblPostCode.setForeground(Color.WHITE);
+		lblPostCode.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblPostCode.setBounds(343, 468, 89, 14);
+		contentPane.add(lblPostCode);
+		
+		txtpostalcode = new JTextField();
+		txtpostalcode.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtpostalcode.setColumns(10);
+		txtpostalcode.setBounds(504, 460, 115, 32);
+		contentPane.add(txtpostalcode);
+		
+		lblemailerror = new JLabel("");
+		lblemailerror.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblemailerror.setForeground(Color.RED);
+		lblemailerror.setBounds(785, 408, 176, 22);
+		contentPane.add(lblemailerror);
+		
+		lblpostalcodeerror = new JLabel("");
+		lblpostalcodeerror.setForeground(Color.RED);
+		lblpostalcodeerror.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblpostalcodeerror.setBounds(681, 470, 176, 22);
+		contentPane.add(lblpostalcodeerror);
+		
+		lblcontacterror = new JLabel("");
+		lblcontacterror.setForeground(Color.RED);
+		lblcontacterror.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblcontacterror.setBounds(770, 365, 176, 22);
+		contentPane.add(lblcontacterror);
+		
+		JLabel lblNewLabel_15 = new JLabel("");
+		lblNewLabel_15.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_15.setBounds(10, 11, 1003, 665);
+		lblNewLabel_15.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\888.jpg"));
+		contentPane.add(lblNewLabel_15);
+		
+		this.accno=accno;
+		
+		btnback.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new Admin_Page();
+			}
+		});
+		
+		
+		btnDone.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				boolean condition=!(txtcontact.getText().equals("") ||txtaddress.getText().equals("") ||
+						txtemail.getText().equals("") || txtname.getText().equals("") || 
+						txtpostalcode.getText().equals(""));
+						
+				lblemailerror.setText("");
+				lblcontacterror.setText("");
+				lblpostalcodeerror.setText("");
+			if(condition) {
+				if(parsing()) {
+					
+					if(checkEmail()) {
+						
+						if(conatctcheck()) {
+							if(checkPostalcode()) {
+								
+								function.updateData(txtname.getText(), txtaddress.getText(),
+										txtcontact.getText(), txtemail.getText(),
+										Integer.parseInt(txtpostalcode.getText()), accno);
+								JOptionPane.showMessageDialog(null, "Successfully Updated.");
+								dispose();
+								new Admin_Page();
+								
+							}
+						}
+					}
+				
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "Some Fields are Empty.");
+			}
+				
+			}
+		} );
+	
+		edit();
+		setVisible(true);
+		
+	}
+
+	private void edit() {
+		
+		String[] data=function.getDetailsOfUser(accno);
+		txtname.setText(data[0]);
+		txtaddress.setText(data[1]);
+		txtcontact.setText(data[3]);
+		txtemail.setText(data[4]);
+		txtpostalcode.setText(data[5]);
+		
+		
+	}
+	
+	private boolean parsing() {
+		
+		try {
+			Integer.parseInt(txtpostalcode.getText());
+			return true;
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "PostalCode must be in numerics.");
+			return false;
+		}
+	
+	}
+
+	
+	private boolean conatctcheck() {
+
+		boolean condition = false;
+		int[] codes = { 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 320,
+				321, 322, 323, 324, 330, 331, 332, 333, 334, 335, 336, 337, 340, 341, 342, 343, 344, 345, 346, 347, 348,
+				349, 355 };
+
+		if (txtcontact.getText().length() == 11) {
+			String str = txtcontact.getText();
+			int code = Integer.parseInt(str.substring(1, 4));
+
+			if (str.startsWith("0")) {
+
+				for (int x : codes) {
+					if (x == code) {
+						condition = true;
+						break;
+					}
+				}
+				
+			}
+		}
+
+		if (condition == false) {
+			lblcontacterror.setText("03*********");
+			txtcontact.setText("");
+		}
+
+		return condition;
+	}
+
+	private boolean checkEmail() {
+
+		String email = txtemail.getText();
+		boolean con = email.endsWith("@gmail.com") ? true
+				: email.endsWith("@yahoo.com") ? true : email.endsWith("@email.com");
+		if (con == false) {
+			lblemailerror.setText("xyz@gmail.com");
+			txtemail.setText("");
+		}
+		return con;
+
+	}
+	
+
+	private boolean checkPostalcode() {
+
+		if (txtpostalcode.getText().length() == 5) {
+			return true;
+		}
+
+		lblpostalcodeerror.setText("Must Have 5 digits");
+		txtpostalcode.setText("");
+		return false;
+	}
+
+}
+
+

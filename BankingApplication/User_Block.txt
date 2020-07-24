@@ -1,0 +1,135 @@
+package gui;
+
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.border.*;
+import javax.swing.*;
+
+
+
+public class User_Block extends JFrame implements ActionListener{
+
+	private JPanel contentPane;
+	private JButton btntransactions,btnlogout,btndetails,btnchangepassword;
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					User_Block frame = new User_Block(0);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	private int accno;
+	private JButton btnnotification;
+	public User_Block(int accno) {
+		
+		setTitle("BANKING SYSTEM");
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 646, 624);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Faizan\\Desktop\\pictures\\window_icon.png"));
+		contentPane = new JPanel();
+		contentPane.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(119, 136, 153)));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		setVisible(true);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(41, 22, 55, 65);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\bs logo.png"));
+		contentPane.add(lblNewLabel);
+		
+		btntransactions = new JButton("Transactions");
+		btntransactions.setBackground(new Color(211, 211, 211));
+		btntransactions.setBounds(223, 179, 202, 47);
+		btntransactions.setFont(new Font("Comic Sans MS", Font.ITALIC, 18));
+		btntransactions.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\money-icon.png"));
+		contentPane.add(btntransactions);
+		
+		btndetails = new JButton("Details");
+		btndetails.setBackground(new Color(211, 211, 211));
+		btndetails.setBounds(244, 283, 159, 47);
+		btndetails.setFont(new Font("Comic Sans MS", Font.ITALIC, 18));
+		btndetails.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\application-view-detail-icon.png"));
+		contentPane.add(btndetails);
+		
+		btnchangepassword = new JButton("Change Password");
+		btnchangepassword.setBackground(new Color(245, 245, 245));
+		btnchangepassword.setBounds(58, 515, 194, 41);
+		btnchangepassword.setFont(new Font("Comic Sans MS", Font.ITALIC, 15));
+		btnchangepassword.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\modify-key-icon.png"));
+		contentPane.add(btnchangepassword);
+		
+		btnlogout = new JButton("Logout");
+		btnlogout.setBackground(new Color(245, 245, 245));
+		btnlogout.setBounds(457, 515, 118, 41);
+		btnlogout.setFont(new Font("Comic Sans MS", Font.ITALIC, 14));
+		btnlogout.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Log-Out-icon.png"));
+		contentPane.add(btnlogout);
+		
+		JLabel lblOnlineBanking = new JLabel("Banking System");
+		lblOnlineBanking.setBounds(10, 78, 106, 24);
+		lblOnlineBanking.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOnlineBanking.setForeground(Color.WHITE);
+		contentPane.add(lblOnlineBanking);
+		
+		btnnotification = new JButton("Notification");
+		btnnotification.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\notification.png"));
+		btnnotification.setFont(new Font("Comic Sans MS", Font.ITALIC, 18));
+		btnnotification.setBackground(new Color(211, 211, 211));
+		btnnotification.setBounds(223, 384, 202, 47);
+		contentPane.add(btnnotification);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(10, 11, 610, 563);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\121.jpg"));
+		contentPane.add(lblNewLabel_1);
+		
+		btnchangepassword.addActionListener(this);
+		btndetails.addActionListener(this);
+		btnlogout.addActionListener(this);
+		btntransactions.addActionListener(this);
+		btnnotification.addActionListener(this);
+		this.accno=accno;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource().equals(btntransactions)) {
+			dispose();
+			new User_Page(accno);
+		}else if(e.getSource().equals(btndetails)) {
+			dispose();
+			new User_Account_Details(accno);
+		}else if (e.getSource().equals(btnlogout)) {
+			dispose();
+			new StartupWindow();
+		
+		}else if (e.getSource().equals(btnchangepassword)) {
+			dispose();
+			new Change_Password(accno);
+		}else if (e.getSource().equals(btnnotification)) {
+			
+			dispose();
+			new ActivityFrame().notification(accno);
+			
+			
+		}
+	}
+
+}

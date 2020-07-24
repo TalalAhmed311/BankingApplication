@@ -1,0 +1,415 @@
+package gui;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.*;
+
+
+public class Admin_Page extends JFrame implements ActionListener{
+
+	private JPanel contentPane;
+	private JTextField txtaccnoedit,txtaccnodelete,txtsearchaccno ,
+	txtaddress,txtbalance,txtcontact,txtemail,txtname;
+	private JTextField txtpostcode,txtactivityaccno;
+	private JButton btnedit,btndelete,btnback,btnsearch,btnlogout,btnIndActivity,btnoverallAcivity;
+	private Operations function=new Operate();
+	
+	/**
+	 * Launch the application.
+	 */
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Admin_Page frame = new Admin_Page();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	
+	public Admin_Page() {
+		setResizable(false);
+		setTitle("ADMIN PAGE");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 0, 1082, 759);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Faizan\\Desktop\\pictures\\window_icon.png"));
+		contentPane = new JPanel();
+		contentPane.setBorder(new MatteBorder(5, 5, 5, 4, (Color) new Color(119, 136, 153)));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		setVisible(true);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(485, 20, 48, 55);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\bs logo.png"));
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblOnlineBanking = new JLabel("Banking System");
+		lblOnlineBanking.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblOnlineBanking.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOnlineBanking.setForeground(Color.WHITE);
+		lblOnlineBanking.setBounds(439, 70, 139, 22);
+		contentPane.add(lblOnlineBanking);
+								
+		JLabel lblNewLabel_5 = new JLabel("ACTIVITY");
+		lblNewLabel_5.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		lblNewLabel_5.setForeground(Color.WHITE);
+		lblNewLabel_5.setBounds(67, 104, 144, 35);
+		lblNewLabel_5.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\folder-desktop-icon.png"));
+		contentPane.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_1 = new JLabel("CUSTOMER DETAILS");
+		lblNewLabel_1.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setBounds(394, 103, 295, 37);
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\cistomer details.png"));
+		contentPane.add(lblNewLabel_1);
+		
+				
+		JLabel lblNewLabel_3 = new JLabel("ACCOUNT SETTINGS");
+		lblNewLabel_3.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		lblNewLabel_3.setForeground(Color.WHITE);
+		lblNewLabel_3.setBounds(742, 103, 272, 37);
+		lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Settings-icon (1).png"));
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_11 = new JLabel("ACCOUNT NO");
+		lblNewLabel_11.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_11.setForeground(Color.WHITE);
+		lblNewLabel_11.setBounds(742, 210, 118, 14);
+		contentPane.add(lblNewLabel_11);
+		
+		txtaccnoedit = new JTextField();
+		txtaccnoedit.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtaccnoedit.setBounds(742, 235, 205, 32);
+		contentPane.add(txtaccnoedit);
+		txtaccnoedit.setColumns(10);
+		
+		btnedit = new JButton("Edit");
+		btnedit.setBackground(new Color(211, 211, 211));
+		btnedit.setHorizontalAlignment(SwingConstants.LEFT);
+		btnedit.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		btnedit.setBounds(885, 294, 113, 32);
+		btnedit.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Pencil-4-icon.png"));
+		contentPane.add(btnedit);
+		
+		JLabel lblNewLabel_111 = new JLabel("ACCOUNT NO");
+		lblNewLabel_111.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_111.setForeground(Color.WHITE);
+		lblNewLabel_111.setBounds(742, 366, 118, 14);
+		contentPane.add(lblNewLabel_111);
+		
+		txtaccnodelete = new JTextField();
+		txtaccnodelete.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtaccnodelete.setBounds(752, 391, 205, 32);
+		contentPane.add(txtaccnodelete);
+		txtaccnodelete.setColumns(10);
+		
+		btndelete = new JButton("Delete");
+		btndelete.setBackground(new Color(211, 211, 211));
+		btndelete.setHorizontalAlignment(SwingConstants.LEFT);
+		btndelete.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		btndelete.setBounds(875, 448, 123, 32);
+		btndelete.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Delete-icon.png"));
+		contentPane.add(btndelete);
+		
+		btnlogout = new JButton("Logout");
+		btnlogout.setBackground(new Color(245, 245, 245));
+		btnlogout.setFont(new Font("Comic Sans MS", Font.ITALIC, 14));
+		btnlogout.setBounds(884, 658, 157, 35);
+		btnlogout.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Log-Out-icon.png"));
+		contentPane.add(btnlogout);
+		
+		btnback = new JButton("Back");
+		btnback.setBackground(new Color(245, 245, 245));
+		btnback.setFont(new Font("Comic Sans MS", Font.ITALIC, 14));
+		btnback.setBounds(34, 658, 118, 35);
+		btnback.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Back-icon (1).png"));
+		contentPane.add(btnback);
+				
+		JLabel lblNewLabel_10 = new JLabel("ACCOUNT NO");
+		lblNewLabel_10.setBackground(Color.GRAY);
+		lblNewLabel_10.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_10.setForeground(Color.WHITE);
+		lblNewLabel_10.setBounds(307, 215, 118, 21);
+		contentPane.add(lblNewLabel_10);
+		
+		btnsearch = new JButton("Search");
+		btnsearch.setBackground(new Color(211, 211, 211));
+		btnsearch.setHorizontalAlignment(SwingConstants.LEFT);
+		btnsearch.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		btnsearch.setBounds(579, 264, 123, 32);
+		btnsearch.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Search-icon.png"));
+		contentPane.add(btnsearch);
+		
+		JLabel lblNewLabel_4 = new JLabel("NAME");
+		lblNewLabel_4.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_4.setForeground(Color.WHITE);
+		lblNewLabel_4.setBounds(307, 346, 48, 14);
+		contentPane.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_6 = new JLabel("ADDRESS");
+		lblNewLabel_6.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_6.setForeground(Color.WHITE);
+		lblNewLabel_6.setBounds(307, 399, 89, 14);
+		contentPane.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("BALANCE");
+		lblNewLabel_7.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_7.setForeground(Color.WHITE);
+		lblNewLabel_7.setBounds(307, 457, 115, 14);
+		contentPane.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_8 = new JLabel("CONTACT NO");
+		lblNewLabel_8.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_8.setForeground(Color.WHITE);
+		lblNewLabel_8.setBounds(307, 515, 139, 14);
+		contentPane.add(lblNewLabel_8);
+		
+		txtsearchaccno = new JTextField();
+		txtsearchaccno.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtsearchaccno.setBounds(457, 210, 245, 32);
+		contentPane.add(txtsearchaccno);
+		txtsearchaccno.setColumns(10);
+		
+		txtaddress = new JTextField();
+		txtaddress.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtaddress.setBounds(457, 391, 245, 32);
+		contentPane.add(txtaddress);
+		txtaddress.setColumns(10);
+		
+		txtbalance = new JTextField();
+		txtbalance.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtbalance.setBounds(457, 449, 201, 32);
+		contentPane.add(txtbalance);
+		txtbalance.setColumns(10);
+		
+		txtcontact = new JTextField();
+		txtcontact.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtcontact.setBounds(457, 507, 201, 32);
+		contentPane.add(txtcontact);
+		txtcontact.setColumns(10);
+		
+		JLabel lblNewLabel_9 = new JLabel("EMAIL ADDRESS");
+		lblNewLabel_9.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_9.setForeground(Color.WHITE);
+		lblNewLabel_9.setBounds(307, 566, 139, 14);
+		contentPane.add(lblNewLabel_9);
+		
+		txtemail = new JTextField();
+		txtemail.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtemail.setBounds(457, 558, 246, 32);
+		contentPane.add(txtemail);
+		txtemail.setColumns(10);
+		
+		JLabel lblPostCode = new JLabel("POST CODE");
+		lblPostCode.setForeground(Color.WHITE);
+		lblPostCode.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblPostCode.setBounds(307, 620, 89, 14);
+		contentPane.add(lblPostCode);
+		
+		txtpostcode = new JTextField();
+		txtpostcode.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtpostcode.setColumns(10);
+		txtpostcode.setBounds(457, 612, 115, 32);
+		contentPane.add(txtpostcode);
+		
+		btnIndActivity = new JButton("Individual Activity");
+		btnIndActivity.setBackground(new Color(211, 211, 211));
+		btnIndActivity.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		btnIndActivity.setBounds(67, 357, 157, 32);
+		contentPane.add(btnIndActivity);
+		
+		btnoverallAcivity = new JButton("Overall Activity");
+		btnoverallAcivity.setBackground(new Color(211, 211, 211));
+		btnoverallAcivity.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		btnoverallAcivity.setBounds(67, 416, 157, 32);
+		contentPane.add(btnoverallAcivity);
+		
+
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		separator.setBounds(280, 98, 435, 557);
+		contentPane.add(separator);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1.setBounds(725, 98, 273, 557);
+		contentPane.add(separator_1);
+		
+		JLabel label = new JLabel("ACCOUNT NO");
+		label.setForeground(Color.WHITE);
+		label.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		label.setBackground(Color.GRAY);
+		label.setBounds(34, 207, 118, 21);
+		contentPane.add(label);
+		
+		txtactivityaccno = new JTextField();
+		txtactivityaccno.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtactivityaccno.setColumns(10);
+		txtactivityaccno.setBounds(34, 235, 205, 32);
+		contentPane.add(txtactivityaccno);
+		
+		txtname = new JTextField();
+		txtname.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtname.setColumns(10);
+		txtname.setBounds(457, 334, 201, 32);
+		contentPane.add(txtname);
+				
+		JLabel lblNewLabel_15 = new JLabel("");
+		lblNewLabel_15.setBackground(Color.LIGHT_GRAY);
+		lblNewLabel_15.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_15.setBounds(10, 11, 1046, 698);
+		lblNewLabel_15.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\admin.jpg"));
+		contentPane.add(lblNewLabel_15);
+		
+		btnback.addActionListener(this);
+		btndelete.addActionListener(this);
+		btnedit.addActionListener(this);
+		btnIndActivity.addActionListener(this);
+		btnlogout.addActionListener(this);
+		btnsearch.addActionListener(this);
+		btnoverallAcivity.addActionListener(this);
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource().equals(btnlogout)) {
+			dispose();
+			new StartupWindow();
+		}else if(e.getSource().equals(btnback)) {
+			dispose();
+			new Admin();	
+		}else if(e.getSource().equals(btnsearch)) {
+			
+			details();
+			
+		}else if (e.getSource().equals(btnedit)) {
+			dispose();
+			edit();
+			
+		}else if (e.getSource().equals(btndelete)) {
+			deleteAccount();
+		}else if (e.getSource().equals(btnIndActivity)) {
+			indactivity();
+				
+			
+		}else if (e.getSource().equals(btnoverallAcivity)) {
+			
+			dispose();
+			new ActivityFrame(true);
+		}
+	}
+	
+	private void indactivity() {
+		try {
+			
+			int accno=Integer.parseInt(txtactivityaccno.getText());
+			if(function.compare(accno)) {
+				if(function.activitychecker(accno)!=0) {
+					dispose();
+					new ActivityFrame(accno);
+				}else {
+					
+					JOptionPane.showMessageDialog(null, "User Has no Such Activity");
+					txtactivityaccno.setText("");
+					
+				}
+			}else {
+				JOptionPane.showMessageDialog(btnIndActivity, "Account does not exist.");
+				txtactivityaccno.setText("");
+			}
+			
+		} catch (NumberFormatException e2) {
+		
+			JOptionPane.showMessageDialog(btnIndActivity, "Account No must be in numerics.");
+			txtactivityaccno.setText("");
+			
+		}
+		
+
+	}
+	private void deleteAccount() {
+		try {
+			
+			int accno=Integer.parseInt(txtaccnodelete.getText());
+			if(function.compare(accno)) {
+			
+				function.deleteAccount(accno);
+				JOptionPane.showMessageDialog(null, "Successfully Done.");
+				txtaccnodelete.setText("");
+				
+			}else {
+				JOptionPane.showMessageDialog(null, "Account doest not exist.");
+				txtaccnodelete.setText("");
+			}
+			
+			
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Must be in Numerics");
+			txtaccnodelete.setText("");
+		}
+	}
+	
+	
+	
+	private void details() {
+	try {
+			
+			int accno=Integer.parseInt(txtsearchaccno.getText());
+			if(function.compare(accno)) {
+				
+				String[] data=function.getDetailsOfUser(accno);
+				txtname.setText(data[0]);
+				txtaddress.setText(data[1]);
+				txtbalance.setText(data[2]);
+				txtcontact.setText(data[3]);
+				txtemail.setText(data[4]);
+				txtpostcode.setText(data[5]);
+				
+				
+			}else {
+				JOptionPane.showMessageDialog(null, "Account doest not exist.");
+				txtsearchaccno.setText("");
+			}
+			
+			
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Must be in Numerics");
+			txtsearchaccno.setText("");
+		}
+		
+	}
+
+	private void edit() {
+		
+		try {
+			int accno=Integer.parseInt(txtaccnoedit.getText());
+			if(function.compare(accno)) {
+				
+				new Edit(accno);
+				
+			}else {
+				JOptionPane.showMessageDialog(null, "Account doest not exist.");
+				txtaccnoedit.setText("");
+			}
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Must be in Numerics");
+			txtaccnoedit.setText("");
+		}
+	}
+}
+
+

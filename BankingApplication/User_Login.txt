@@ -1,0 +1,130 @@
+package gui;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.border.*;
+import javax.swing.*;
+
+public class User_Login extends JFrame implements ActionListener {
+
+	private JPanel contentPane;
+	private JPasswordField passwordField;
+	private JTextField txtaccno;
+	private Operations function=new Operate();
+	private JLabel lblerror;
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					User_Login frame = new User_Login();
+					// frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public User_Login() {
+		setResizable(false);
+		setTitle("USER LOGIN");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 646, 536);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Faizan\\Desktop\\pictures\\window_icon.png"));
+		contentPane = new JPanel();
+		contentPane.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(119, 136, 153)));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		setVisible(true);
+
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(41, 25, 55, 65);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\bs logo.png"));
+		contentPane.add(lblNewLabel);
+
+		JLabel lblOnlineBanking = new JLabel("Banking System");
+		lblOnlineBanking.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOnlineBanking.setForeground(Color.WHITE);
+		lblOnlineBanking.setBounds(10, 81, 118, 22);
+		contentPane.add(lblOnlineBanking);
+
+		JLabel lblNewLabel_2 = new JLabel("USER LOGIN");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Comic Sans MS", Font.PLAIN, 26));
+		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setBounds(127, 102, 398, 74);
+		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\man-icon.png"));
+		contentPane.add(lblNewLabel_2);
+
+		JLabel label = new JLabel("ACCOUNT NO");
+		label.setForeground(Color.WHITE);
+		label.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+		label.setBounds(147, 221, 144, 14);
+		contentPane.add(label);
+
+		txtaccno = new JTextField();
+		txtaccno.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtaccno.setColumns(10);
+		txtaccno.setBounds(301, 215, 236, 32);
+		contentPane.add(txtaccno);
+
+		JLabel lblNewLabel_9 = new JLabel("PASSWORD");
+		lblNewLabel_9.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+		lblNewLabel_9.setForeground(Color.WHITE);
+		lblNewLabel_9.setBounds(144, 287, 110, 14);
+		contentPane.add(lblNewLabel_9);
+
+		passwordField = new JPasswordField();
+		passwordField.setEchoChar('*');
+		passwordField.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		passwordField.setBounds(303, 280, 139, 32);
+		contentPane.add(passwordField);
+
+		JButton btnlogin = new JButton("LogIn");
+		btnlogin.setBackground(new Color(245, 245, 245));
+		btnlogin.setFont(new Font("Comic Sans MS", Font.ITALIC, 15));
+		btnlogin.setBounds(457, 418, 118, 41);
+		btnlogin.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Login-icon.png"));
+		contentPane.add(btnlogin);
+		btnlogin.addActionListener(this);
+		
+		lblerror = new JLabel("");
+		lblerror.setForeground(Color.RED);
+		lblerror.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblerror.setBackground(Color.WHITE);
+		lblerror.setBounds(292, 351, 283, 32);
+		contentPane.add(lblerror);
+
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(10, 11, 610, 475);
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\222.jpg"));
+		contentPane.add(lblNewLabel_1);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		
+		int accno=0;
+		try {
+			
+			accno=Integer.parseInt(txtaccno.getText());
+			if(function.compare(accno) & function.comparepassword(accno,String.valueOf(passwordField.getPassword()))) {
+				dispose();
+				new User_Block(accno);
+			}else {
+				lblerror.setText("Account no or password is incorrect");
+			}
+		} catch (NumberFormatException e2) {
+			lblerror.setText("Account no must be in Integer.");
+		}
+		
+	}
+}

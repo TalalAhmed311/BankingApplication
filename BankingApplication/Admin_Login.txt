@@ -1,0 +1,127 @@
+package gui;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.border.*;
+import javax.swing.*;
+
+@SuppressWarnings("serial")
+public class Admin_Login extends JFrame implements ActionListener{
+
+	private final String id="Admin";
+	private final String password="admin123";
+	private JPasswordField passwordField;
+	private JPanel contentPane;
+	private JTextField txtID;
+	private JLabel lblError;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Admin_Login frame = new Admin_Login();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Admin_Login() {
+		setResizable(false);
+		setTitle("ADMIN LOGIN");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 646, 536);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Faizan\\Desktop\\pictures\\window_icon.png"));
+		contentPane = new JPanel();
+		contentPane.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(119, 136, 153)));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		setVisible(true);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(41, 25, 55, 65);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\bs logo.png"));
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblOnlineBanking = new JLabel("Banking System");
+		lblOnlineBanking.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOnlineBanking.setForeground(Color.WHITE);
+		lblOnlineBanking.setBounds(10, 81, 118, 22);
+		contentPane.add(lblOnlineBanking);
+		
+		JLabel lblNewLabel_2 = new JLabel("ADMIN LOGIN");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Comic Sans MS", Font.PLAIN, 26));
+		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setBounds(127, 102, 398, 74);
+		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\administrator-icon (1).png"));
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblId = new JLabel("ID");
+		lblId.setForeground(Color.WHITE);
+		lblId.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+		lblId.setBounds(147, 221, 144, 14);
+		contentPane.add(lblId);
+		
+		txtID = new JTextField();
+		txtID.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtID.setColumns(10);
+		txtID.setBounds(301, 215, 236, 32);
+		contentPane.add(txtID);
+		
+		JLabel lblNewLabel_9 = new JLabel("PASSWORD");
+		lblNewLabel_9.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+		lblNewLabel_9.setForeground(Color.WHITE);
+		lblNewLabel_9.setBounds(144, 287, 110, 14);
+		contentPane.add(lblNewLabel_9);
+		
+		passwordField = new JPasswordField();
+		passwordField.setEchoChar('*');
+		passwordField.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		passwordField.setBounds(301, 280, 139, 32);
+		contentPane.add(passwordField);
+		
+		JButton btnlogin = new JButton("LogIn");
+		btnlogin.setBackground(new Color(245, 245, 245));
+		btnlogin.setFont(new Font("Comic Sans MS", Font.ITALIC, 15));
+		btnlogin.setBounds(457, 418, 118, 41);
+		btnlogin.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Login-icon.png"));
+		contentPane.add(btnlogin);
+		btnlogin.addActionListener(this);
+		
+		lblError = new JLabel("");
+		lblError.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblError.setBackground(new Color(255, 255, 255));
+		lblError.setForeground(new Color(255, 0, 0));
+		lblError.setBounds(254, 348, 283, 32);
+		contentPane.add(lblError);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(10, 11, 610, 475);
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\222.jpg"));
+		contentPane.add(lblNewLabel_1);
+		
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(txtID.getText().equals(id) & passwordField.getText().equals(password)) {
+			
+			dispose();
+			new Admin();
+			
+		}else {
+			lblError.setText("Id or Password is incorrect");
+		}
+		
+	}
+}

@@ -1,0 +1,97 @@
+package gui;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+import javax.swing.border.MatteBorder;
+
+public class StartupWindow extends JFrame{
+
+	
+
+	private JPanel contentPane;
+	JLabel lblNewLabel;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+				 new StartupWindow();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	
+
+	public StartupWindow() {
+		setResizable(false);
+		setTitle("BANK APPLICATION");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 912, 632);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Faizan\\Desktop\\pictures\\window_icon.png"));
+		contentPane = new JPanel();
+		contentPane.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(119, 136, 153)));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		setVisible(true);
+		
+		
+		JLabel lblOnlineBanking = new JLabel("BANKING SYSTEM");
+		lblOnlineBanking.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOnlineBanking.setForeground(Color.WHITE);
+		lblOnlineBanking.setBackground(Color.GRAY);
+		lblOnlineBanking.setFont(new Font("Colonna MT", Font.PLAIN, 78));
+		lblOnlineBanking.setBounds(127, 109, 663, 83);
+		contentPane.add(lblOnlineBanking);
+		
+		JButton btnNewButton = new JButton("Admin Login");
+		btnNewButton.setBackground(new Color(245, 245, 245));
+		btnNewButton.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 18));
+		btnNewButton.setBounds(204, 313, 237, 49);
+		btnNewButton.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\administrator-icon_2.png"));
+		contentPane.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new Admin_Login();
+				
+			}
+		});
+		
+		JButton btnNewButton_1 = new JButton("User Login");
+		btnNewButton_1.setBackground(new Color(245, 245, 245));
+		btnNewButton_1.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 20));
+		btnNewButton_1.setBounds(468, 312, 237, 49);
+		btnNewButton_1.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\man-icon_2.png"));
+		contentPane.add(btnNewButton_1);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new User_Login();
+			}
+		});
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\background.jpg"));
+		lblNewLabel.setBounds(10, 11, 875, 570);
+		contentPane.add(lblNewLabel);
+		
+		
+	}
+}

@@ -1,0 +1,208 @@
+package gui;
+
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.BorderLayout;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+
+public class ActivityFrame extends JFrame {
+
+	private Operations fun = new Operate();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		
+	}
+
+	public ActivityFrame() {
+		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * Create the application.
+	 */
+	public ActivityFrame(boolean v) {
+		Overall();
+	}
+
+	public ActivityFrame(int accno) {
+		indframe(accno);
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+
+	private void indframe(int accno) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Faizan\\Desktop\\pictures\\bs logo.png"));
+		setBounds(30, 100, 1300, 461);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(null);
+
+		String colname[] = { "Accno", "Name", "Date", "Deposit", "Transfer", "WithDraw", "BenefiecieryAccno",
+				"ReceivedFromAccount", "Received" };
+		String[][] data = fun.Indactivity(accno);
+
+		JTable activitytable = new JTable(data, colname);
+		activitytable.setEnabled(false);
+		activitytable.setRowSelectionAllowed(false);
+		activitytable.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
+		//
+
+		JScrollPane pane = new JScrollPane(activitytable);
+		pane.setBounds(0, 0, 1284, 381);
+		getContentPane().add(pane);
+
+		JButton btnBtnlogout = new JButton("Logout");
+		btnBtnlogout.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnBtnlogout.setBounds(1156, 381, 128, 41);
+		btnBtnlogout.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Log-Out-icon.png"));
+
+		getContentPane().add(btnBtnlogout);
+
+		btnBtnlogout.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new StartupWindow();
+			}
+		});
+
+		JButton btnBtnback = new JButton("Back");
+		btnBtnback.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Back-icon (1).png"));
+		btnBtnback.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnBtnback.setBounds(0, 386, 107, 36);
+		getContentPane().add(btnBtnback);
+
+		btnBtnback.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new Admin_Page();
+			}
+		});
+		setVisible(true);
+
+	}
+
+	private void Overall() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Faizan\\Desktop\\pictures\\bs logo.png"));
+		setBounds(30, 100, 1300, 461);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		String colname[] = { "Accno", "Name", "Date", "Deposit", "Transfer", "WithDraw", "BenefiecieryAccno",
+				"ReceivedFromAccount", "Received" };
+		String[][] data = fun.overallActivity();
+		getContentPane().setLayout(null);
+
+		JTable activitytable = new JTable(data, colname);
+		activitytable.setEnabled(false);
+		activitytable.setRowSelectionAllowed(false);
+		activitytable.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
+		//
+
+		JScrollPane pane = new JScrollPane(activitytable);
+		pane.setBounds(0, 0, 1284, 385);
+		getContentPane().add(pane);
+		
+		JButton btnBtnback = new JButton("Back");
+		btnBtnback.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Back-icon (1).png"));
+		btnBtnback.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnBtnback.setBounds(0, 388, 103, 34);
+		getContentPane().add(btnBtnback);
+		
+		btnBtnback.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new Admin_Page();
+			}
+		});
+	
+		JButton btnBtnlogout = new JButton("Logout");
+		btnBtnlogout.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Log-Out-icon.png"));
+		btnBtnlogout.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnBtnlogout.setBounds(1146, 388, 138, 34);
+		getContentPane().add(btnBtnlogout);
+
+		btnBtnlogout.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new StartupWindow();
+			}
+		});
+
+		setVisible(true);
+
+	}
+
+	public void notification(int accno) {
+
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Faizan\\Desktop\\pictures\\bs logo.png"));
+		setBounds(30, 100, 1300, 461);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(null);
+
+		String colname[] = { "Accno", "Name", "Date", "Deposit", "Transfer", "WithDraw", "BenefiecieryAccno",
+				"ReceivedFromAccount", "Received" };
+		String[][] data = fun.Indactivity(accno);
+
+		JTable activitytable = new JTable(data, colname);
+		activitytable.setEnabled(false);
+		activitytable.setRowSelectionAllowed(false);
+		activitytable.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
+		//
+
+		JScrollPane pane = new JScrollPane(activitytable);
+		pane.setBounds(0, 0, 1284, 381);
+		getContentPane().add(pane);
+
+		JButton btnBtnlogout = new JButton("Logout");
+		btnBtnlogout.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnBtnlogout.setBounds(1156, 381, 128, 41);
+		btnBtnlogout.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Log-Out-icon.png"));
+
+		getContentPane().add(btnBtnlogout);
+
+		btnBtnlogout.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new StartupWindow();
+			}
+		});
+
+		JButton btnBtnback = new JButton("Back");
+		btnBtnback.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Back-icon (1).png"));
+		btnBtnback.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnBtnback.setBounds(0, 386, 107, 36);
+		getContentPane().add(btnBtnback);
+
+		btnBtnback.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new User_Block(accno);
+			}
+		});
+		setVisible(true);
+
+
+	}
+}

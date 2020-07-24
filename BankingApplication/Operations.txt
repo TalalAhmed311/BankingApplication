@@ -1,0 +1,33 @@
+package gui;
+
+import java.util.*;
+public interface Operations {
+
+	
+
+	void setFields(String name, String password, double balance, int accno,String address,
+			String email,int postalcode,String contact);
+
+	
+	boolean compareBalance(int accno,double balance);
+	boolean compare(int accno);
+	boolean comparepassword(int accno,String password);
+	
+	String[] getDetailsOfUser(int accno );
+	void changePassword(int accno,String Password);
+	
+	void deposit(int accno,double value);
+
+	void withdraw(int accno, double value);
+	
+	void transfer(int accno,double value,int beneficiaryaccno);
+	
+	void deleteAccount(int accno);
+	
+	
+	void updateData(String name,String address,String contact,String email,int postalcode,int accno);
+	String[][] Indactivity(int accno);
+	String[][] overallActivity();
+
+	int activitychecker(int accno);
+}

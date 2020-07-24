@@ -1,0 +1,393 @@
+package gui;
+
+import java.sql.*;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
+
+public class Operate implements Operations {
+
+	private Connection con;
+	private PreparedStatement pst;
+	private Statement st;
+	private ResultSet rSet;
+	private List<Integer> account_no_list;
+	private DecimalFormat form = new DecimalFormat("#.###");
+	private Date d = new Date();
+	private SimpleDateFormat formater = new SimpleDateFormat("dd//MM//yyyy HH:mm:ss");
+
+	{
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bank", "root", "Ahmed123");
+			st = con.createStatement();
+			account_no_list = new ArrayList<>();
+			rSet = st.executeQuery("select Account_No from customerdetails");
+			while (rSet.next()) {
+
+				account_no_list.add(rSet.getInt(1));
+			}
+
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+
+	@Override
+	public void setFields(String name, String password, double balance, int accno, String address, String email,
+			int postalcode, String contact) {
+
+		String dataset = "insert into customerdetails value(?,?,?,?,?,?,?,?)";
+		try {
+			pst = con.prepareStatement(dataset);
+			pst.setInt(1, accno);
+			pst.setString(2, name);
+			pst.setDouble(3, balance);
+			pst.setString(4, address);
+			pst.setString(5, contact);
+			pst.setString(6, email);
+			pst.setInt(7, postalcode);
+			pst.setString(8, password);
+			pst.executeUpdate();
+			pst.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public boolean compare(int accno) {
+		for (int x : account_no_list) {
+			if (accno == x) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean comparepassword(int accno, String password) {
+		try {
+			rSet = st.executeQuery("select Password from customerdetails where Account_No=" + accno);
+			rSet.next();
+			return rSet.getString(1).equals(password) ? true : false;
+
+		} catch (Exception e) {
+			return false;
+		}
+
+	}
+
+	@Override
+	public String[] getDetailsOfUser(int accno) {
+
+		String[] data = new String[6];
+
+		try {
+			rSet = st.executeQuery(
+					"select Name,Address,Balance,Contact,Email,Postal_Code from customerdetails where Account_No="
+							+ accno);
+			rSet.next();
+			data[0] = rSet.getString(1);
+			data[1] = rSet.getString(2);
+			data[2] = String.valueOf(rSet.getDouble(3));
+			data[3] = rSet.getString(4);
+			data[4] = rSet.getString(5);
+			data[5] = String.valueOf(rSet.getInt(6));
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	@Override
+	public void changePassword(int accno, String pass) {
+
+		try {
+			rSet = st.executeQuery(
+					"select Name,Balance,Address,Contact,Email,Postal_Code from customerdetails where Account_No="
+							+ accno);
+			rSet.next();
+			String name = rSet.getString("Name");
+			double balance = rSet.getDouble("Balance");
+			String address = rSet.getString("Address");
+			String contact = rSet.getString("Contact");
+			String email = rSet.getString("Email");
+			int postalcode = rSet.getInt("Postal_Code");
+			deleteAccount(accno);
+			setFields(name, pass, balance, accno, address, email, postalcode, contact);
+			
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deposit(int accno, double value) {
+
+		String query = "insert into  activity value(?,?,?,?,?,?,?,?,?)";
+		try {
+			rSet = st.executeQuery("select Name,Balance from customerdetails where Account_No=" + accno);
+			rSet.next();
+			double amount = rSet.getDouble("Balance");
+			amount += value;
+			pst = con.prepareStatement(query);
+			pst.setInt(1, accno);
+			pst.setString(2, rSet.getString(1));
+			pst.setString(3, formater.format(d));
+			pst.setDouble(4, value);
+			pst.setDouble(5, 0.0);
+			pst.setDouble(6, 0.0);
+			pst.setInt(7, 0);
+			pst.setInt(8, 0);
+			pst.setDouble(9, 0.0);
+			pst.executeUpdate();
+			pst = con.prepareStatement("update customerdetails set Balance=" + amount + " where Account_No=" + accno);
+			pst.executeUpdate();
+			JOptionPane.showMessageDialog(null, "RECORD UPDATED SUCCESSFULLY!!");
+			st.close();
+			rSet.close();
+			pst.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void withdraw(int accno, double value) {
+		String query = "insert into  activity value(?,?,?,?,?,?,?,?,?)";
+		try {
+			rSet = st.executeQuery("select Name,Balance from customerdetails where Account_No=" + accno);
+			rSet.next();
+			double amount = rSet.getDouble("Balance");
+			amount -= value;
+			pst = con.prepareStatement(query);
+			pst.setInt(1, accno);
+			pst.setString(2, rSet.getString("Name"));
+			pst.setString(3, formater.format(d));
+			pst.setDouble(4, 0.0);
+			pst.setDouble(5, 0.0);
+			pst.setDouble(6, value);
+			pst.setInt(7, 0);
+			pst.setInt(8, 0);
+			pst.setDouble(9, 0.0);
+			pst.executeUpdate();
+			pst = con.prepareStatement("update customerdetails set Balance=" + amount + " where Account_No=" + accno);
+			pst.executeUpdate();
+			JOptionPane.showMessageDialog(null, "RECORD UPDATED SUCCESSFULLY!!");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public boolean compareBalance(int accno, double balance) {
+
+		try {
+			rSet = st.executeQuery("select Balance from customerdetails where Account_No=" + accno);
+			rSet.next();
+			double u = rSet.getDouble("Balance");
+			if (u > balance) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	@Override
+	public void transfer(int accno, double value, int beneficiaryaccno) {
+
+		try {
+
+			userPartoftrandsferFunction(accno, value, beneficiaryaccno);
+			beneficieryPart(accno, value, beneficiaryaccno);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void userPartoftrandsferFunction(int accno, double balance, int beneacccno) throws SQLException {
+
+		rSet = st.executeQuery("select Name,Balance from customerdetails where Account_No=" + accno);
+		rSet.next();
+		double value = rSet.getDouble("Balance");
+		value -= balance;
+		pst = con.prepareStatement("update customerdetails set Balance=" + value + "where Account_No=" + accno);
+		pst.executeUpdate();
+
+		String query = "insert into  activity value(?,?,?,?,?,?,?,?,?)";
+
+		pst = con.prepareStatement(query);
+		pst.setInt(1, accno);
+		pst.setString(2, rSet.getString("Name"));
+		pst.setString(3, formater.format(d));
+		pst.setDouble(4, 0.0);
+		pst.setDouble(5, balance);
+		pst.setDouble(6, 0.0);
+		pst.setInt(7, beneacccno);
+		pst.setInt(8, 0);
+		pst.setDouble(9, 0.0);
+		pst.executeUpdate();
+
+	}
+
+	private void beneficieryPart(int accno, double balance, int beneaccno) throws SQLException {
+
+		rSet = st.executeQuery("select Name, Balance from customerdetails where Account_No=" + beneaccno);
+		rSet.next();
+		double value = rSet.getDouble("Balance");
+
+		value += balance;
+
+		pst = con.prepareStatement("update customerdetails set Balance=" + value + "where Account_No=" + beneaccno);
+		pst.executeUpdate();
+
+		String query = "insert into  activity value(?,?,?,?,?,?,?,?,?)";
+
+		pst = con.prepareStatement(query);
+		pst.setInt(1, beneaccno);
+		pst.setString(2, rSet.getString("Name"));
+		pst.setString(3, formater.format(d));
+		pst.setDouble(4, 0.0);
+		pst.setDouble(5, 0.0);
+		pst.setDouble(6, 0.0);
+		pst.setInt(7, 0);
+		pst.setInt(8, accno);
+		pst.setDouble(9, balance);
+		pst.executeUpdate();
+
+	}
+
+	@Override
+	public void deleteAccount(int accno) {
+
+		try {
+
+			pst = con.prepareStatement("delete from customerdetails where Account_No=" + accno);
+			pst.executeUpdate();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	@Override
+	public void updateData(String name, String address, String contact, String email, int postalcode, int accno) {
+
+		try {
+			rSet = st.executeQuery("select Balance,Password from customerdetails where Account_No=" + accno);
+			rSet.next();
+			double b = rSet.getDouble("Balance");
+			String pass = rSet.getString("Password");
+			deleteAccount(accno);
+			setFields(name, pass, b, accno, address, email, postalcode, contact);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	public String[][] Indactivity(int accno) {
+		String[][] data = null;
+		try {
+			rSet = st.executeQuery("select count(*) as Count from activity where Account_no=" + accno);
+			rSet.next();
+			int count=rSet.getInt("Count");
+			if(count==0) {
+				return null;
+			}
+			data=new String[count][9];
+			rSet=st.executeQuery("select Name,Date,Deposited_value,Transfer_value,Withdrawl_amount,Benefieciery_Account_No,"
+					+ "Transfered_from_Account,Received_value from activity where Account_no="+accno);
+			
+			int i=0;
+			
+			while (rSet.next()) {
+				data[i][0]=String.valueOf(accno);
+				data[i][1]=rSet.getString("Name");
+				data[i][2]=rSet.getString("Date");
+				data[i][3]=String.valueOf(rSet.getDouble("Deposited_value"));
+				data[i][4]=String.valueOf(rSet.getDouble("Transfer_value"));
+				data[i][5]=String.valueOf(rSet.getDouble("Withdrawl_amount"));
+				data[i][6]=String.valueOf(rSet.getInt("Benefieciery_Account_No"));
+				data[i][7]=String.valueOf(rSet.getInt("Transfered_from_Account"));
+				data[i][8]=String.valueOf(rSet.getDouble("Received_value"));
+				i++;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return data;
+
+	}
+
+	public String[][] overallActivity() {
+		String[][] data = null;
+		try {
+			rSet = st.executeQuery("select count(*) as Count from activity");
+			rSet.next();
+			data=new String[rSet.getInt("Count")][9];
+			rSet=st.executeQuery("select Account_no, Name,Date,Deposited_value,Transfer_value,Withdrawl_amount,Benefieciery_Account_No,"
+					+ "Transfered_from_Account,Received_value from activity");
+			
+			int i=0;
+			
+			while (rSet.next()) {
+				data[i][0]=String.valueOf(rSet.getInt("Account_no"));
+				data[i][1]=rSet.getString("Name");
+				data[i][2]=rSet.getString("Date");
+				data[i][3]=String.valueOf(rSet.getDouble("Deposited_value"));
+				data[i][4]=String.valueOf(rSet.getDouble("Transfer_value"));
+				data[i][5]=String.valueOf(rSet.getDouble("Withdrawl_amount"));
+				data[i][6]=String.valueOf(rSet.getInt("Benefieciery_Account_No"));
+				data[i][7]=String.valueOf(rSet.getInt("Transfered_from_Account"));
+				data[i][8]=String.valueOf(rSet.getDouble("Received_value"));
+				i++;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	@Override
+	public int activitychecker(int accno) {
+		int count=0;
+		try {
+			rSet=st.executeQuery("select count(*) as Count from activity where Account_no="+accno);
+			rSet.next();
+			count=rSet.getInt("Count");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return count;
+	}
+}

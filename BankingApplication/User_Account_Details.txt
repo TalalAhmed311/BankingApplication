@@ -1,0 +1,193 @@
+package gui;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.border.*;
+import javax.swing.*;
+
+
+
+public class User_Account_Details extends JFrame implements ActionListener {
+
+	private JPanel contentPane;
+	private JTextField txtname,txtaddress,txtbalance,txtcontact,txtemail,txtpostalcode;
+	private JButton btnlogout,btnback;
+	private Operations function=new Operate();
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					User_Account_Details frame = new User_Account_Details(0);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	private int accno;
+	public User_Account_Details(int accno) {
+		setResizable(false);
+		setTitle("USER ACCOUNT DETAILS");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 30, 1039, 726);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Faizan\\Desktop\\pictures\\window_icon.png"));
+		contentPane = new JPanel();
+		contentPane.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(119, 136, 153)));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		setVisible(true);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(485, 20, 48, 55);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\bs logo.png"));
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblOnlineBanking = new JLabel("Banking System");
+		lblOnlineBanking.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblOnlineBanking.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOnlineBanking.setForeground(Color.WHITE);
+		lblOnlineBanking.setBounds(439, 70, 139, 22);
+		contentPane.add(lblOnlineBanking);
+		
+		JLabel lblNewLabel_2 = new JLabel("ACCOUNT DETAILS");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Comic Sans MS", Font.PLAIN, 26));
+		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setBounds(316, 136, 398, 74);
+		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Account details icon.png"));
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_4 = new JLabel("NAME");
+		lblNewLabel_4.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_4.setForeground(Color.WHITE);
+		lblNewLabel_4.setBounds(343, 261, 48, 14);
+		contentPane.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_6 = new JLabel("ADDRESS");
+		lblNewLabel_6.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_6.setForeground(Color.WHITE);
+		lblNewLabel_6.setBounds(343, 309, 89, 14);
+		contentPane.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("BALANCE");
+		lblNewLabel_7.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_7.setForeground(Color.WHITE);
+		lblNewLabel_7.setBounds(343, 358, 115, 14);
+		contentPane.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_8 = new JLabel("CONTACT NO");
+		lblNewLabel_8.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_8.setForeground(Color.WHITE);
+		lblNewLabel_8.setBounds(343, 407, 139, 14);
+		contentPane.add(lblNewLabel_8);
+						
+		txtname = new JTextField();
+		txtname.setEditable(false);
+		txtname.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtname.setBounds(504, 254, 229, 32);
+		contentPane.add(txtname);
+		txtname.setColumns(10);
+		
+		txtaddress = new JTextField();
+		txtaddress.setEditable(false);
+		txtaddress.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtaddress.setBounds(504, 302, 299, 32);
+		contentPane.add(txtaddress);
+		txtaddress.setColumns(10);
+		
+		txtbalance = new JTextField();
+		txtbalance.setEditable(false);
+		txtbalance.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtbalance.setBounds(504, 351, 201, 32);
+		contentPane.add(txtbalance);
+		txtbalance.setColumns(10);
+		
+		txtcontact = new JTextField();
+		txtcontact.setEditable(false);
+		txtcontact.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtcontact.setBounds(504, 400, 201, 32);
+		contentPane.add(txtcontact);
+		txtcontact.setColumns(10);
+		
+		JLabel lblNewLabel_10 = new JLabel("EMAIL ADDRESS");
+		lblNewLabel_10.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_10.setForeground(Color.WHITE);
+		lblNewLabel_10.setBounds(343, 455, 139, 14);
+		contentPane.add(lblNewLabel_10);
+		
+		txtemail = new JTextField();
+		txtemail.setEditable(false);
+		txtemail.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtemail.setBounds(504, 448, 246, 32);
+		contentPane.add(txtemail);
+		txtemail.setColumns(10);
+		
+		btnback = new JButton("BACK");
+		btnback.setBackground(new Color(245, 245, 245));
+		btnback.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+		btnback.setBounds(80, 614, 115, 32);
+		btnback.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Back-icon (1).png"));
+		contentPane.add(btnback);
+		
+		btnlogout = new JButton("Logout");
+		btnlogout.setBackground(new Color(245, 245, 245));
+		btnlogout.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		btnlogout.setBounds(816, 611, 157, 35);
+		btnlogout.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Log-Out-icon.png"));
+		contentPane.add(btnlogout);
+		
+		JLabel lblPostCode = new JLabel("POST CODE");
+		lblPostCode.setForeground(Color.WHITE);
+		lblPostCode.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblPostCode.setBounds(343, 500, 89, 14);
+		contentPane.add(lblPostCode);
+		
+		txtpostalcode = new JTextField();
+		txtpostalcode.setEditable(false);
+		txtpostalcode.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtpostalcode.setColumns(10);
+		txtpostalcode.setBounds(504, 493, 115, 32);
+		contentPane.add(txtpostalcode);
+		
+		JLabel lblNewLabel_15 = new JLabel("");
+		lblNewLabel_15.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_15.setBounds(10, 11, 1003, 665);
+		lblNewLabel_15.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\888.jpg"));
+		contentPane.add(lblNewLabel_15);
+
+		this.accno=accno;
+		String[] data=function.getDetailsOfUser(accno);
+		txtname.setText(data[0]);
+		txtaddress.setText(data[1]);
+		txtbalance.setText(data[2]);
+		txtcontact.setText(data[3]);
+		txtemail.setText(data[4]);
+		txtpostalcode.setText(data[5]);
+		
+		btnback.addActionListener(this);
+		btnlogout.addActionListener(this);
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().equals(btnback)) {
+			dispose();
+			new User_Block(accno);
+		}else if(e.getSource().equals(btnlogout)) {
+			dispose();
+			new StartupWindow();
+		}
+	}
+
+}

@@ -1,0 +1,297 @@
+package gui;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.border.*;
+import javax.swing.*;
+
+
+public class User_Page extends JFrame implements ActionListener{
+
+	private JPanel contentPane;
+	private JTextField txtwithdraw;
+	private JTextField txtdeposit;
+	private JTextField txtammount,txttransferaccno;
+	private JButton btnwithdrawprocess,btndepositprocess,
+	btntransferprocess,btnlogout,btnback;
+	private Operations function=new Operate();
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					User_Page frame = new User_Page(0);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	private int accno;
+	public User_Page(int accno) {
+		setResizable(false);
+		setTitle("TRANSACTIONS");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 30, 1040, 727);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Faizan\\Desktop\\pictures\\window_icon.png"));
+		contentPane = new JPanel();
+		contentPane.setBorder(new MatteBorder(5, 5, 5, 4, (Color) new Color(119, 136, 153)));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		setVisible(true);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(485, 20, 48, 55);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\bs logo.png"));
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblOnlineBanking = new JLabel("Banking System");
+		lblOnlineBanking.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblOnlineBanking.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOnlineBanking.setForeground(Color.WHITE);
+		lblOnlineBanking.setBounds(439, 70, 139, 22);
+		contentPane.add(lblOnlineBanking);
+		
+		JLabel lblNewLabel_5 = new JLabel("WITHDRAW");
+		lblNewLabel_5.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+		lblNewLabel_5.setForeground(Color.WHITE);
+		lblNewLabel_5.setBounds(67, 124, 165, 35);
+		lblNewLabel_5.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\withdraw icon.png"));
+		contentPane.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_1 = new JLabel("DEPOSIT");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setBounds(365, 123, 231, 37);
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\deposit_icon.png"));
+		contentPane.add(lblNewLabel_1);
+		
+				
+		JLabel lblNewLabel_3 = new JLabel("TRANSFER");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+		lblNewLabel_3.setForeground(Color.WHITE);
+		lblNewLabel_3.setBounds(742, 123, 236, 37);
+		lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\transfer_icon.png"));
+		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_11 = new JLabel("ACCOUNT NO");
+		lblNewLabel_11.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_11.setForeground(Color.WHITE);
+		lblNewLabel_11.setBounds(688, 232, 118, 14);
+		contentPane.add(lblNewLabel_11);
+		
+		txttransferaccno = new JTextField();
+		txttransferaccno.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txttransferaccno.setBounds(688, 284, 196, 32);
+		contentPane.add(txttransferaccno);
+		txttransferaccno.setColumns(10);
+		
+		btntransferprocess = new JButton("Done");
+		btntransferprocess.setBackground(new Color(211, 211, 211));
+		btntransferprocess.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		btntransferprocess.setBounds(860, 458, 118, 32);
+		btntransferprocess.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Ok-icon.png"));
+		contentPane.add(btntransferprocess);
+		
+		JLabel lblNewLabel_111 = new JLabel("TRANSFER AMOUNT");
+		lblNewLabel_111.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_111.setForeground(Color.WHITE);
+		lblNewLabel_111.setBounds(688, 358, 165, 22);
+		contentPane.add(lblNewLabel_111);
+		
+		txtammount = new JTextField();
+		txtammount.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtammount.setBounds(688, 391, 196, 32);
+		contentPane.add(txtammount);
+		txtammount.setColumns(10);
+		
+		btnlogout = new JButton("Logout");
+		btnlogout.setBackground(new Color(245, 245, 245));
+		btnlogout.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		btnlogout.setBounds(841, 620, 157, 35);
+		btnlogout.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Log-Out-icon.png"));
+		contentPane.add(btnlogout);
+		
+		btnback = new JButton("Back");
+		btnback.setBackground(new Color(245, 245, 245));
+		btnback.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		btnback.setBounds(84, 620, 118, 35);
+		btnback.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Back-icon (1).png"));
+		contentPane.add(btnback);
+				
+		JLabel lblNewLabel_10 = new JLabel("DEPOSIT AMOUNT");
+		lblNewLabel_10.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblNewLabel_10.setForeground(Color.WHITE);
+		lblNewLabel_10.setBounds(337, 232, 146, 14);
+		contentPane.add(lblNewLabel_10);
+		
+		btndepositprocess = new JButton("Done");
+		btndepositprocess.setBackground(new Color(211, 211, 211));
+		btndepositprocess.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		btndepositprocess.setBounds(512, 371, 118, 32);
+		btndepositprocess.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Ok-icon.png"));
+		contentPane.add(btndepositprocess);
+		
+		txtdeposit = new JTextField();
+		txtdeposit.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtdeposit.setBounds(337, 284, 196, 32);
+		contentPane.add(txtdeposit);
+		txtdeposit.setColumns(10);
+		
+
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		separator.setBounds(307, 98, 406, 533);
+		contentPane.add(separator);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1.setBounds(657, 98, 273, 533);
+		contentPane.add(separator_1);
+		
+		JLabel lblWithsrawAmount = new JLabel("WITHSRAW AMOUNT");
+		lblWithsrawAmount.setForeground(Color.WHITE);
+		lblWithsrawAmount.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		lblWithsrawAmount.setBounds(27, 234, 175, 14);
+		contentPane.add(lblWithsrawAmount);
+		
+		txtwithdraw = new JTextField();
+		txtwithdraw.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		txtwithdraw.setColumns(10);
+		txtwithdraw.setBounds(24, 284, 196, 29);
+		contentPane.add(txtwithdraw);
+		
+		btnwithdrawprocess = new JButton("Done");
+		btnwithdrawprocess.setBackground(new Color(211, 211, 211));
+		btnwithdrawprocess.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		btnwithdrawprocess.setBounds(160, 371, 124, 32);
+		btnwithdrawprocess.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\Ok-icon.png"));
+		contentPane.add(btnwithdrawprocess);
+		
+		JLabel lblNewLabel_15 = new JLabel("");
+		lblNewLabel_15.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_15.setBounds(10, 11, 1004, 666);
+		lblNewLabel_15.setIcon(new ImageIcon("C:\\Users\\Faizan\\Desktop\\pictures\\888.jpg"));
+		contentPane.add(lblNewLabel_15);
+		
+		btnback.addActionListener(this);
+		btnlogout.addActionListener(this);
+		btndepositprocess.addActionListener(this);
+		btnwithdrawprocess.addActionListener(this);
+		btntransferprocess.addActionListener(this);
+		this.accno=accno;
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource().equals(btnlogout)) {
+			dispose();
+			new StartupWindow();
+		}else if(e.getSource().equals(btnback)) {
+			dispose();
+			new User_Block(accno);
+		}else if(e.getSource().equals(btndepositprocess)) {
+			
+			deposit();
+			
+		}else if(e.getSource().equals(btnwithdrawprocess)) {
+			
+			withDraw();
+			
+		}else if(e.getSource().equals(btntransferprocess)) {
+			
+			transfer();
+		}
+	}
+	
+	
+	private void deposit() {
+		try {
+			double amount=Double.parseDouble(txtdeposit.getText());
+			function.deposit(accno, amount);
+			txtdeposit.setText("");
+		} catch (NumberFormatException e2) {
+			JOptionPane.showMessageDialog(null, "Amount must be in Numerics");
+			txtdeposit.setText("");
+			
+		}
+	
+	}
+	
+	private void withDraw() {
+		try {
+			double amount=Double.parseDouble(txtwithdraw.getText());
+			if(function.compareBalance(accno, amount)) {
+				function.withdraw(accno, amount);
+				txtwithdraw.setText("");
+			}else {
+			      
+				JOptionPane.showMessageDialog(null,"INSUFFICIENT BALANCE!!");
+			     txtwithdraw.setText("");
+			}
+			
+		} catch (NumberFormatException e2) {
+			JOptionPane.showMessageDialog(null, "Amount must be in Numerics");
+			txtwithdraw.setText("");
+		}
+		
+	}
+	
+	private void transfer() {
+		try {
+			int beneficiary_accno=Integer.parseInt(txttransferaccno.getText());
+			double amount=Double.parseDouble(txtammount.getText());
+			
+			if(function.compareBalance(accno, amount)) {
+				
+				if(function.compare(beneficiary_accno)) {
+					
+					if(accno!=beneficiary_accno) {
+						
+						function.transfer(accno, amount,beneficiary_accno);
+
+						JOptionPane.showMessageDialog(null, "Transferred Successfully");
+						txttransferaccno.setText("");
+						txtammount.setText("");
+						
+					}else {
+						JOptionPane.showMessageDialog(null, "Cannot send to your own Account.");
+						txttransferaccno.setText("");
+						txtammount.setText("");
+						
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Benificiery Account does not exist.");
+					txttransferaccno.setText("");
+					txtammount.setText("");
+				}
+			
+			}else {
+				
+				JOptionPane.showMessageDialog(null, "INSUFFICIENT BALANCE");
+				txttransferaccno.setText("");
+				txtammount.setText("");
+			
+			}
+			
+		} catch (NumberFormatException e2) {
+			JOptionPane.showMessageDialog(null, "Amount & Account No must be in Numerics");
+			txttransferaccno.setText("");
+			txtammount.setText("");
+		}
+		
+	}
+}
+
